@@ -1,0 +1,65 @@
+<div class="basic-info" [formGroup]="parentForm">
+  <h2>Basic Information</h2>
+  
+  <div class="basic-info-container">
+    <div class="input-container">
+      <app-custom-input
+        label="Email*"
+        type="email"
+        width="400px"
+        placeholder="Enter your email"
+        [control]="getControl('email')"
+      ></app-custom-input>
+
+      <app-custom-input
+        label="Name*"
+        type="text"
+        width="400px"
+        placeholder="Enter your name"
+        [control]="getControl('name')"
+      ></app-custom-input>
+    </div>
+
+    <div class="input-container">
+      <div class="select-wrapper">
+        <span class="select-label">Country*</span>
+        <select 
+          formControlName="country"
+          [class.error]="parentForm.get('country')?.invalid && parentForm.get('country')?.touched"
+        >
+          <option value="">Select country</option>
+          <option *ngFor="let c of countries" [value]="c.code">
+            {{ c.name }}
+          </option>
+        </select>
+        <div class="error-message" *ngIf="parentForm.get('country')?.invalid && parentForm.get('country')?.touched">
+          <span *ngIf="parentForm.get('country')?.errors?.['required']">Please select a country</span>
+        </div>
+      </div>
+
+      <div *ngIf="showPhone" class="phone-input">
+        <app-custom-input
+          [label]="'Phone (' + selectedCountry + ')'"
+          type="tel"
+          width="400px"
+          [placeholder]="phoneMask"
+          [control]="getControl('phone')"
+        ></app-custom-input>
+      </div>
+    </div>
+  </div>
+  
+  <div class="navigation-buttons">
+    <app-white-button
+      label="Back"
+      type="button"
+      (clicked)="goBack()"
+    ></app-white-button>
+    
+    <app-custom-button
+      label="Next"
+      type="button"
+      (clicked)="proceed()"
+    ></app-custom-button>
+  </div>
+</div>

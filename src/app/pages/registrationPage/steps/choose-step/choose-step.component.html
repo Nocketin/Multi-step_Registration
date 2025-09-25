@@ -1,0 +1,37 @@
+<div class="choose-step" [formGroup]="parentForm">
+  <h2>Registration</h2>
+
+  <div class="social-buttons">
+    <button
+      *ngFor="let provider of socialProviders"
+      type="button"
+      class="social-button"
+      [class.selected]="
+        parentForm.get('method')?.value === 'social' &&
+        parentForm.get('socialData.provider')?.value === provider.id
+      "
+      (click)="selectSocialProvider(provider.id)"
+    >
+      <img
+        [src]="'/assets/icons/' + provider.icon + '.svg'"
+        [alt]="provider.name"
+        class="social-icon"
+      />
+    </button>
+  </div>
+
+  <div class="divider">
+    <span>or</span>
+  </div>
+
+  <div class="email_button-container">
+    <button
+      type="button"
+      class="email_button"
+      [class.selected]="parentForm.get('method')?.value === 'email'"
+      (click)="selectMethod('email')"
+    >
+      Register with Email
+    </button>
+  </div>
+</div>

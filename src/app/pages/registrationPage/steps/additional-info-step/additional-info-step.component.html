@@ -1,0 +1,126 @@
+<div class="additional-info" [formGroup]="parentForm">
+  <h2>Additional Information</h2>
+  
+  <div class="additional-info-container">
+    <h3>Address</h3>
+    <div class="input-container">
+      <div formGroupName="address" class="address-container">
+        <div class="select-wrapper">
+          <span class="select-label">Country*</span>
+          <select
+            formControlName="country"
+            [class.error]="
+              parentForm.get('address.country')?.invalid &&
+              parentForm.get('address.country')?.touched
+            "
+          >
+            <option value="">Select country</option>
+            <option *ngFor="let c of countries" [value]="c.code">
+              {{ c.name }}
+            </option>
+          </select>
+          <div
+            class="error-message"
+            *ngIf="
+              parentForm.get('address.country')?.invalid &&
+              parentForm.get('address.country')?.touched
+            "
+          >
+            <span
+              *ngIf="parentForm.get('address.country')?.errors?.['required']"
+              >Please select a country</span
+            >
+          </div>
+        </div>
+
+        <app-custom-input
+          label="City*"
+          type="text"
+          width="300px"
+          placeholder="Enter city"
+          [control]="getControl('address.city')"
+        ></app-custom-input>
+
+        <app-custom-input
+          label="Street*"
+          type="text"
+          width="300px"
+          placeholder="Enter street and house number"
+          [control]="getControl('address.street')"
+        ></app-custom-input>
+      </div>
+    </div>
+
+    <div class="input-container">
+      <app-custom-input
+        label="Date of Birth*"
+        type="date"
+        width="400px"
+        [control]="getControl('birthDate')"
+        (change)="onBirthDateChange($event)"
+      ></app-custom-input>
+
+      <div class="select-wrapper">
+        <span class="select-label">Gender*</span>
+        <select
+          formControlName="gender"
+          [class.error]="
+            parentForm.get('gender')?.invalid &&
+            parentForm.get('gender')?.touched
+          "
+        >
+          <option value="">Select gender</option>
+          <option *ngFor="let g of genders" [value]="g.value">
+            {{ g.label }}
+          </option>
+        </select>
+        <div
+          class="error-message"
+          *ngIf="
+            parentForm.get('gender')?.invalid &&
+            parentForm.get('gender')?.touched
+          "
+        >
+          <span *ngIf="parentForm.get('gender')?.errors?.['required']"
+            >Please select your gender</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guardian-fields" *ngIf="isMinor">
+    <h3>Guardian Information</h3>
+    <div class="guardian-info">
+      <app-custom-input
+        label="Guardian Name*"
+        type="text"
+        width="400px"
+        placeholder="Enter guardian's name"
+        [control]="getControl('guardianData.name')"
+      ></app-custom-input>
+
+      <app-custom-input
+        label="Guardian Email*"
+        type="email"
+        width="400px"
+        placeholder="Enter guardian's email"
+        [control]="getControl('guardianData.email')"
+      ></app-custom-input>
+    </div>
+  </div>
+  
+  <div class="navigation-buttons">
+    <app-white-button
+      label="Back"
+      type="button"
+      (clicked)="goBack()"
+    ></app-white-button>
+    
+    <app-custom-button
+      label="Next"
+      type="button"
+      (clicked)="proceed()"
+    ></app-custom-button>
+  </div>
+</div>

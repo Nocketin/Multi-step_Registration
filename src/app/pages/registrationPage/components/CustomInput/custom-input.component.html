@@ -1,0 +1,20 @@
+<div class="input-wrapper" [ngStyle]="{ width: width }">
+  <span class="custom_input-label">{{ label }}</span>
+  
+  <div class="custom_input">
+    <label>
+      <input 
+        [type]="type" 
+        [formControl]="control" 
+        [placeholder]="placeholder"
+        [class.error]="control.invalid && control.touched"
+      />
+    </label>
+  </div>
+  
+  <div class="error-message" *ngIf="control.invalid && control.touched">
+    <span *ngIf="control.errors?.['required']">This field is required</span>
+    <span *ngIf="control.errors?.['email']">Please enter a valid email address</span>
+    <span *ngIf="control.errors?.['invalidName']">Name should be at least 2 characters long and contain only letters</span>
+  </div>
+</div>

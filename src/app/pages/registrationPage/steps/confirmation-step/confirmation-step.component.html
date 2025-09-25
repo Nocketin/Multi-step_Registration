@@ -1,0 +1,68 @@
+<div class="confirmation-step" [formGroup]="parentForm">
+  <h2>Terms Confirmation</h2>
+
+  <div class="confirmation-container">
+    <div class="terms-section">
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="acceptTerms" />
+          <span class="checkmark"></span>
+          <span class="checkbox-text"
+            >I accept the terms of the user agreement*</span
+          >
+        </label>
+        <div
+          class="error-message"
+          *ngIf="
+            parentForm.get('acceptTerms')?.invalid &&
+            parentForm.get('acceptTerms')?.touched
+          "
+        >
+          <span>You must accept the terms of the user agreement</span>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="acceptPrivacy" />
+          <span class="checkmark"></span>
+          <span class="checkbox-text"
+            >I agree to the processing of personal data*</span
+          >
+        </label>
+        <div
+          class="error-message"
+          *ngIf="
+            parentForm.get('acceptPrivacy')?.invalid &&
+            parentForm.get('acceptPrivacy')?.touched
+          "
+        >
+          <span>You must agree to the processing of personal data</span>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="subscribeNewsletter" />
+          <span class="checkmark"></span>
+          <span class="checkbox-text">Subscribe to news</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation-buttons">
+    <app-white-button
+      label="Back"
+      type="button"
+      (clicked)="goBack()"
+    ></app-white-button>
+    
+    <app-custom-button
+      label="Complete Registration"
+      type="button"
+      [disabled]="!canComplete"
+      (clicked)="completeRegistration()"
+    ></app-custom-button>
+  </div>
+</div>

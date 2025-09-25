@@ -1,0 +1,27 @@
+<div class="shell">
+  <app-choose-step
+    *ngIf="currentStep === 0"
+    [parentForm]="form"
+    (socialProviderSelected)="onSocialProviderSelected($event)"
+    (stepChanged)="onStepChanged($event)"
+  ></app-choose-step>
+
+  <app-basic-info-step
+    *ngIf="currentStep === 1"
+    [parentForm]="form"
+    (stepChanged)="onStepChanged($event)"
+  ></app-basic-info-step>
+
+  <app-additional-info-step
+    *ngIf="currentStep === 2"
+    [parentForm]="form"
+    (stepChanged)="onStepChanged($event)"
+  ></app-additional-info-step>
+
+  <app-confirmation-step
+    *ngIf="currentStep === 3"
+    [parentForm]="form"
+    (stepChanged)="onStepChanged($event)"
+    (registrationCompleted)="onRegistrationCompleted()"
+  ></app-confirmation-step>
+</div>
